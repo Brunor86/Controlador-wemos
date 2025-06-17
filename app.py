@@ -50,3 +50,11 @@ def dispositivos():
 # === Ejecutar localmente (opcional) ===
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
+
+from flask import jsonify
+
+@app.route("/dispositivos")
+def dispositivos():
+    return jsonify(DISPOSITIVOS)
+
+
