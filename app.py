@@ -1,3 +1,5 @@
+DISPOSITIVOS = ["LUZ1", "LUZ2", "VENTILADOR", "BOMBA"]
+
 from flask import Flask, request, render_template, jsonify
 import paho.mqtt.client as mqtt
 import os
