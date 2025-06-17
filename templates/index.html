@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Control Wemos</title>
+</head>
+<body>
+  <h1>Control de dispositivos</h1>
+  <button onclick="enviar('LUZ1', 'encender')">Encender LUZ1</button>
+  <button onclick="enviar('LUZ1', 'apagar')">Apagar LUZ1</button>
+
+  <script>
+    function enviar(dispositivo, accion) {
+      fetch(`/${accion}/${dispositivo}`)
+        .then(response => response.text())
+        .then(data => alert(data));
+    }
+  </script>
+</body>
+</html>
