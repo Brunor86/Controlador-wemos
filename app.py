@@ -1,5 +1,3 @@
-DISPOSITIVOS = ["LUZ1", "LUZ2", "VENTILADOR", "BOMBA"]
-
 from flask import Flask, request, render_template, jsonify
 import paho.mqtt.client as mqtt
 import os
@@ -47,14 +45,6 @@ def web():
 def dispositivos():
     return jsonify(DISPOSITIVOS)
 
-# === Ejecutar localmente (opcional) ===
+# === Ejecutar localmente ===
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
-
-from flask import jsonify
-
-@app.route("/dispositivos")
-def dispositivos():
-    return jsonify(DISPOSITIVOS)
-
-
