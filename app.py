@@ -6,8 +6,8 @@ app = Flask(__name__)
 # Datos del broker MQTT
 MQTT_BROKER = "10d5264920a243d0b583f5a78c15c5b4.s1.eu.hivemq.cloud"
 MQTT_PORT = 8883
-MQTT_USER = "brunorossini02@gmail.com"
-MQTT_PASS = "Bruno32105654"
+MQTT_USER = "Brunor"
+MQTT_PASS = "Brunor86*
 MQTT_TOPIC_BASE = "comandos/"
 
 # Crear cliente MQTT
