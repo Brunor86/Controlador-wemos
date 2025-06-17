@@ -1,3 +1,5 @@
+from flask import render_template
+
 from flask import Flask, request
 import paho.mqtt.client as mqtt
 
@@ -33,8 +35,6 @@ def apagar(dispositivo):
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
-
-from flask import render_template
 
 @app.route("/web")
 def web():
