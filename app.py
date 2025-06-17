@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 import paho.mqtt.client as mqtt
 import os
 
@@ -11,10 +11,13 @@ MQTT_USER = os.getenv("MQTT_USER")
 MQTT_PASS = os.getenv("MQTT_PASS")
 MQTT_TOPIC_BASE = "comandos/"
 
-# === Conexión al broker MQTT ===
+# === Dispositivos disponibles ===
+DISPOSITIVOS = ["LUZ1", "LUZ2", "VENTILADOR", "BOMBA"]
+
+# === Conexión MQTT ===
 client = mqtt.Client()
 client.username_pw_set(MQTT_USER, MQTT_PASS)
-client.tls_set()  # Activa TLS para conexión segura
+client.tls_set()
 client.connect(MQTT_BROKER, MQTT_PORT)
 client.loop_start()
 
@@ -38,6 +41,10 @@ def apagar(dispositivo):
 def web():
     return render_template("index.html")
 
-# === Ejecutar localmente (Render lo ignora) ===
+@app.route("/dispositivos")
+def dispositivos():
+    return jsonify(DISPOSITIVOS)
+
+# === Ejecutar localmente (opcional) ===
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
