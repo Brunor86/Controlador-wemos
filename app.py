@@ -1,21 +1,24 @@
 from flask import Flask, request, render_template
 import paho.mqtt.client as mqtt
+import os
 
 app = Flask(__name__)
 
-# Datos del broker MQTT
+# === Configuración MQTT desde variables de entorno ===
 MQTT_BROKER = "10d5264920a243d0b583f5a78c15c5b4.s1.eu.hivemq.cloud"
 MQTT_PORT = 8883
-MQTT_USER = "Brunor"
-MQTT_PASS = "Brunor86*
+MQTT_USER = os.getenv("MQTT_USER")
+MQTT_PASS = os.getenv("MQTT_PASS")
 MQTT_TOPIC_BASE = "comandos/"
 
-# Crear cliente MQTT
+# === Conexión al broker MQTT ===
 client = mqtt.Client()
 client.username_pw_set(MQTT_USER, MQTT_PASS)
-client.tls_set()
+client.tls_set()  # Activa TLS para conexión segura
 client.connect(MQTT_BROKER, MQTT_PORT)
 client.loop_start()
+
+# === Rutas Flask ===
 
 @app.route("/")
 def home():
@@ -31,11 +34,10 @@ def apagar(dispositivo):
     client.publish(MQTT_TOPIC_BASE + dispositivo, "OFF")
     return f"{dispositivo} apagado"
 
-# 👇 esta ruta debe ir ANTES del if __name__ == "__main__"
 @app.route("/web")
 def web():
     return render_template("index.html")
 
-# 👇 esto siempre debe ir al final
+# === Ejecutar localmente (Render lo ignora) ===
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
