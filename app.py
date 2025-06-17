@@ -27,24 +27,28 @@ client.loop_start()
 def home():
     return "Servidor Flask OK"
 
+@app.route("/web")
+def web():
+    return render_template("index.html", dispositivos=DISPOSITIVOS)
+
 @app.route("/encender/<dispositivo>")
 def encender(dispositivo):
-    client.publish(MQTT_TOPIC_BASE + dispositivo, "ON")
-    return f"{dispositivo} encendido"
+    if dispositivo in DISPOSITIVOS:
+        client.publish(MQTT_TOPIC_BASE + dispositivo, "ON")
+        return f"{dispositivo} encendido"
+    return "Dispositivo no válido", 404
 
 @app.route("/apagar/<dispositivo>")
 def apagar(dispositivo):
-    client.publish(MQTT_TOPIC_BASE + dispositivo, "OFF")
-    return f"{dispositivo} apagado"
-
-@app.route("/web")
-def web():
-    return render_template("index.html")
+    if dispositivo in DISPOSITIVOS:
+        client.publish(MQTT_TOPIC_BASE + dispositivo, "OFF")
+        return f"{dispositivo} apagado"
+    return "Dispositivo no válido", 404
 
 @app.route("/dispositivos")
 def dispositivos():
     return jsonify(DISPOSITIVOS)
 
-# === Ejecutar localmente ===
+# === Ejecutar localmente (opcional) ===
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
