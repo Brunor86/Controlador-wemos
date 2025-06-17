@@ -4,10 +4,10 @@ import paho.mqtt.client as mqtt
 app = Flask(__name__)
 
 # Datos del broker MQTT (HiveMQ Cloud o Mosquitto en local)
-MQTT_BROKER = "xxxx.s1.eu.hivemq.cloud"
+MQTT_BROKER = "10d5264920a243d0b583f5a78c15c5b4.s1.eu.hivemq.cloud"
 MQTT_PORT = 8883
-MQTT_USER = "TU_USUARIO"
-MQTT_PASS = "TU_PASSWORD"
+MQTT_USER = "brunorossini02@gmail.com"
+MQTT_PASS = "Bruno32105654"
 MQTT_TOPIC_BASE = "comandos/"
 
 # Crear cliente MQTT
